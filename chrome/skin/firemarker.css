@@ -1,0 +1,86 @@
+.panelNode-firemarker{
+  background-color: #F4F4F4;
+}
+
+#firemarker-container {
+}
+
+#firemarker-container .header{
+  font-size: 14px;
+  padding: 12px;
+  border-bottom: 1px solid #999999;
+  color: gray;
+}
+
+#firemarker-container .header .tagname {
+  color:black;
+  font-weigh: bold;
+}
+
+#firemarker-container .marker-table{
+  border-bottom: 1px solid #999999;
+  width: 100%;
+  background-color: white;
+}
+
+#firemarker-container .highlighted{
+  background-color: yellow;
+}
+
+#firemarker-container .note-label {
+  font-weight: bold;
+  padding-right: 6px;
+  padding-left: 6px;
+  text-align: right;
+  vertical-align: top;
+}
+
+#firemarker-container .note-value {
+  width: 100%;
+  padding-right: 6px;
+}
+
+#firemarker-container .writable,
+#firemarker-container .writable a{
+
+  color: green;
+}
+
+#firemarker-container .read-only,
+#firemarker-container .read-only a{
+  color: blue;
+}
+
+#firemarker-container .no-markers{
+  color: gray;
+  border: none;
+  margin-top: 6px;
+  padding-top: 6px;
+  padding-left: 6px;
+}
+
+#firemarker-container .editor-container {
+  text-align: center;
+}
+
+#firemarker-container .editor-iframe {
+  overflow: hidden;
+  border: none;
+  background-color: transparent;
+  width: 98%;
+  height: 153px;
+}
+
+.firemarker-highlight {
+  background-color: yellow;
+  border: 1px solid red;
+  border-radius: 4px;
+  padding: 2px 4px 0;
+  margin: 2px;
+}
+
+.firemarker-highlight.nodeHidden {
+  background-color: #FFFFBB;
+  border-color: #FF8888;
+}
+

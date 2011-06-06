@@ -1,0 +1,3 @@
+content  firemarker  chrome/content/
+skin     firemarker  classic/1.0  chrome/skin/
+overlay  chrome://firebug/content/firebugOverlay.xul  chrome://firemarker/content/firemarker.xul

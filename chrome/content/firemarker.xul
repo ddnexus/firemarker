@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://firemarker/skin/editor/codemirror.css" type="text/css"?>
+<?xml-stylesheet href="chrome://firemarker/skin/editor/xml.css" type="text/css"?>
+<?xml-stylesheet href="chrome://firemarker/skin/editor/javascript.css" type="text/css"?>
+<?xml-stylesheet href="chrome://firemarker/skin/editor/css.css" type="text/css"?>
+<?xml-stylesheet href="chrome://firemarker/skin/editor/erb.css" type="text/css"?>
+<?xml-stylesheet href="chrome://firemarker/skin/editor/editor.css" type="text/css"?>
+<?xml-stylesheet href="chrome://firemarker/skin/firemarker.css" type="text/css"?>
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script src="chrome://firemarker/content/editor/codemirror.js" type="application/x-javascript"/>
+  <script src="chrome://firemarker/content/editor/overlay.js" type="application/x-javascript"/>
+  <script src="chrome://firemarker/content/editor/xml.js" type="application/x-javascript"/>
+  <script src="chrome://firemarker/content/editor/javascript.js" type="application/x-javascript"/>
+  <script src="chrome://firemarker/content/editor/css.js" type="application/x-javascript"/>
+  <script src="chrome://firemarker/content/editor/erb.js" type="application/x-javascript"/>
+  <script src="chrome://firemarker/content/editor/editor.js" type="application/x-javascript"/>
+  <script src="chrome://firemarker/content/firemarker.js" type="application/x-javascript"/>
+</overlay>

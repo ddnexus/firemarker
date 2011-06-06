@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <title>FireMarker</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <script type="text/javascript" src="editor/codemirror.js"></script>
+  <script type="text/javascript" src="editor/overlay.js"></script>
+  <link rel="stylesheet" href="../../skin/editor/codemirror.css">
+
+  <script  type="text/javascript" src="editor/xml.js"></script>
+  <link rel="stylesheet" href="../../skin/editor/xml.css">
+
+  <script  type="text/javascript" src="editor/javascript.js"></script>
+  <link rel="stylesheet" href="../../skin/editor/javascript.css">
+
+  <script  type="text/javascript" src="editor/css.js"></script>
+  <link rel="stylesheet" href="../../skin/editor/css.css">
+
+  <script  type="text/javascript" src="editor/erb.js"></script>
+  <link rel="stylesheet" href="../../skin/editor/erb.css">
+
+  <script  type="text/javascript" src="editor/editor.js"></script>
+  <link rel="stylesheet" href="../../skin/editor/editor.css">
+
+  <script type="text/javascript">
+
+    var editor;
+
+    function sizeEditor() {
+      var borderWidth  = editor.wrapper.offsetWidth  - editor.wrapper.clientWidth;
+      var borderHeight = editor.wrapper.offsetHeight - editor.wrapper.clientHeight;
+      editor.wrapper.style.height = window.innerHeight - borderWidth + 'px';
+      editor.wrapper.style.width  = window.innerWidth  - borderHeight + 'px';
+    }
+
+    window.onload = function() {
+      var path = location.search.substring(1,location.search.length);
+      editor   = new FireMarkerEditor(document.body, path);
+      if (parent.document.URL != "chrome://firebug/content/panel.html") {
+        var t = editor.filePath.split(/(?:\/|\\)/);
+        document.title = "FireMarker \u25B6 " + t[t.length-1];
+        if (editor.lineNum) { document.title += ':' + editor.lineNum }
+        editor.wrapper.style.border       = "none";
+        editor.wrapper.style.overflow     = "auto";
+        editor.wrapper.style.borderRadius = 0;
+      }
+      sizeEditor();
+    };
+
+    window.onresize = sizeEditor;
+    window.onunload = function() { editor.closeEditor() }
+
+  </script>
+</head>
+<body>
+</body>
+</html>
