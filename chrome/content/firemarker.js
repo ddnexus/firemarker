@@ -202,6 +202,7 @@ FBL.ns(function() {
 
       getMarkers: function(objectBox) {
         var markers       = [];
+        var markersByUid  = {};
         var endMarkerNum  = 0;
         var startMarkerRe = new RegExp('^\\[' + this.activeNamespace + '\\]');
         var endMarkerRe   = new RegExp('^\\[/' + this.activeNamespace + '\\]');
@@ -221,9 +222,34 @@ FBL.ns(function() {
                 }
                 var markerObj = {commentNode: curNode, notes: notes};
                 markers.push(markerObj);
+                markersByUid[marker.uid] = markerObj;
               }
             } else if ( endMarkerRe.test(curNode.data) ) {
               endMarkerNum ++;
+            }
+          }
+        }
+        curNode       = objectBox;
+        while (curNode = curNode.nextSibling || curNode.parentNode) {
+          if (curNode.nodeType === 8) {
+            if ( endMarkerRe.test(curNode.data) ) {
+              var marker = curNode.data.replace(endMarkerRe, '');
+              try {
+                marker = eval('(' + marker + ')');
+                if(marker) {
+                  if(markersByUid[marker.uid] && marker.time) {
+                    notes = markersByUid[marker.uid].notes;
+                    for(var i=0; i<notes.length; i++) {
+                      if(notes[i].label=="time") {
+                        notes[i].value = marker.time - notes[i].value;
+                        break;
+                      }
+                    }
+                  }
+                }
+              } catch(e) {
+                Components.utils.reportError(e);
+              }
             }
           }
         }
@@ -233,6 +259,7 @@ FBL.ns(function() {
       getNotes: function(marker) {
         var notes = [];
         for (var note in marker) {
+          if (note=="uid") continue;
           var isPath = (/path$/i).test(note);
           var writable = isPath && /\+$/.test(marker[note]);
           var valueTypeClass = isPath ? (writable ? "writable" : "read-only") : 'text';
