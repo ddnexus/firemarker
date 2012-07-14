@@ -46,7 +46,7 @@ FBL.ns(function() {
                              this.highlightTable(table);
                              this.clearMarkedObjectBoxes();
                              this.cachedMarked = this.marked = Firebug.firemarkerPanel.getMarked(table.commentNode);
-                             var highlighter = new Firebug.Inspector.FrameHighlighter();
+                             // var highlighter = new Firebug.Inspector.FrameHighlighter();
                              for(var i = 0; i < this.marked.length; i++){
                                if (this.marked[i].nodeType === 3) {
                                  var text = this.marked[i];
@@ -55,17 +55,16 @@ FBL.ns(function() {
                                  var span = text.ownerDocument.createElement('span');
                                  span.textContent = text.textContent;
                                  text.parentNode.replaceChild(span, text);
-                                 highlighter.highlight(window.content, span, null,
-                                                       {border: "red", background:"yellow"}, true);
+                                 // highlighter.highlight(window.content, span, null,
+                                 //                       {border: "red", background:"yellow"}, true);
                                  span.parentNode.replaceChild(text, span);
                                } else {
-                                 highlighter.highlight(window.content, this.marked[i], null,
-                                                       {border: "red", background:"yellow"}, true);
+                                 // highlighter.highlight(window.content, this.marked[i], null,
+                                 //                       {border: "red", background:"yellow"}, true);
                                }
                                var ioBox = Firebug.firemarkerPanel.mainPanel.ioBox;
-                               var objectBox = ioBox.createObjectBox(this.marked[i]);
+                               var objectBox = ioBox.openToObject(this.marked[i]);
                                setClass(objectBox, "firemarker-highlight");
-                               ioBox.openObjectBox(objectBox);
                                scrollIntoCenterView(objectBox);
                              }
                            },
