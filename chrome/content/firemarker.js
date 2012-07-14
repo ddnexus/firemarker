@@ -201,29 +201,56 @@ FBL.ns(function() {
       },
 
       getMarkers: function(objectBox) {
-        var markers       = [];
-        var endMarkerNum  = 0;
-        var startMarkerRe = new RegExp('^\\[' + this.activeNamespace + '\\]');
-        var endMarkerRe   = new RegExp('^\\[/' + this.activeNamespace + '\\]');
-        var curNode       = objectBox;
+        var markers        = [];
+        var endMarkerNum   = 0;
+        var startMarkerNum = 0;
+        var startMarkerRe  = new RegExp('^\\[' + this.activeNamespace + '\\]');
+        var endMarkerRe    = new RegExp('^\\[/' + this.activeNamespace + '\\]');
+        var curNode        = objectBox;
+        var endMarkerIdx   = -1;
+        // process start markers data
         while (curNode = curNode.previousSibling || curNode.parentNode) {
           if (curNode.nodeType === 8) {
             if ( startMarkerRe.test(curNode.data) ) {
               if (endMarkerNum > 0) {
                 endMarkerNum --
               } else {
-                var marker = curNode.data.replace(startMarkerRe, '');
+                var startMarker = curNode.data.replace(startMarkerRe, '');
                 try {
-                  marker = eval('(' + marker + ')');
-                  var notes = this.getNotes(marker);
+                  startMarker = eval('(' + startMarker + ')');
+                  var startNotes = this.getNotes(startMarker);
                 } catch(e) {
                   Components.utils.reportError(e);
                 }
-                var markerObj = {commentNode: curNode, notes: notes};
+                var markerObj = {commentNode: curNode, notes: startNotes};
                 markers.push(markerObj);
               }
             } else if ( endMarkerRe.test(curNode.data) ) {
               endMarkerNum ++;
+            }
+          }
+        }
+        // process end markers data and add to the marker objects
+        curNode = objectBox;
+        while (curNode = curNode.nextSibling || curNode.parentNode) {
+          if (curNode.nodeType === 8) {
+            if ( endMarkerRe.test(curNode.data) ) {
+              if (startMarkerNum > 0) {
+                startMarkerNum --
+              } else {
+                endMarkerIdx ++;
+                var endMarker = curNode.data.replace(endMarkerRe, '');
+                try {
+                  endMarker = eval('(' + endMarker + ')');
+                  var endNotes = this.getNotes(endMarker);
+                } catch(e) {
+                  Components.utils.reportError(e);
+                }
+                var startMarkerObj = markers[endMarkerIdx];
+                startMarkerObj.notes = startMarkerObj.notes.concat(endNotes);
+              }
+            } else if ( startMarkerRe.test(curNode.data) ) {
+              startMarkerNum ++;
             }
           }
         }
